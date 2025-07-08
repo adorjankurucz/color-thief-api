@@ -1,6 +1,6 @@
 import express from 'express';
 import fetch from 'node-fetch';
-import { Vibrant } from 'node-vibrant';
+import Vibrant from 'node-vibrant';
 
 const app = express();
 app.use(express.json());
