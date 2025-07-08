@@ -1,6 +1,6 @@
-import express from 'express';
-import fetch from 'node-fetch';
-import Vibrant from 'node-vibrant';
+const express = require('express');
+const fetch = require('node-fetch');
+const ColorThief = require('colorthief');
 
 const app = express();
 app.use(express.json());
@@ -11,12 +11,12 @@ app.post('/palette', async (req, res) => {
     const response = await fetch(imageUrl);
     const buffer = await response.buffer();
 
-    const palette = await Vibrant.from(buffer).getPalette();
-    const colors = Object.values(palette)
-      .map(swatch => (swatch ? swatch.getHex() : null))
-      .filter(Boolean);
+    // Get dominant color
+    const dominantColor = await ColorThief.getColor(buffer);
+    // Get palette (5 colors)
+    const palette = await ColorThief.getPalette(buffer, 5);
 
-    res.json({ colors });
+    res.json({ dominantColor, palette });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

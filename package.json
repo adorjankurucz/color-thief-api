@@ -1,14 +1,14 @@
 {
   "name": "color-thief-api",
   "version": "1.0.0",
-  "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "colorthief": "^2.3.2",
     "express": "^5.1.0",
-    "node-fetch": "^3.3.2",
-    "node-vibrant": "^4.0.3"
+    "node-fetch": "^3.3.2"
   }
 }
