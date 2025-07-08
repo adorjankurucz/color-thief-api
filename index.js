@@ -1,6 +1,6 @@
-const express = require('express');
-const fetch = require('node-fetch');
-const Vibrant = require('node-vibrant').default; // OVO je KLJUČNO!
+import express from 'express';
+import fetch from 'node-fetch';
+import Vibrant from 'node-vibrant';
 
 const app = express();
 app.use(express.json());
@@ -10,7 +10,6 @@ app.post('/palette', async (req, res) => {
     const { imageUrl } = req.body;
     const response = await fetch(imageUrl);
     const buffer = await response.buffer();
-
     const palette = await Vibrant.from(buffer).getPalette();
     const colors = Object.values(palette)
       .map(swatch => swatch ? swatch.getHex() : null)
