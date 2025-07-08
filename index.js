@@ -1,6 +1,6 @@
 import express from 'express';
 import fetch from 'node-fetch';
-import Vibrant from 'node-vibrant/lib/bundle.js'; // obrati pažnju na .js na kraju ako deployuješ na railway!
+import Vibrant from 'node-vibrant';
 
 const app = express();
 app.use(express.json());
@@ -9,9 +9,9 @@ app.post('/palette', async (req, res) => {
   try {
     const { imageUrl } = req.body;
     const response = await fetch(imageUrl);
-    const buffer = await response.buffer();
+    const buffer = await response.arrayBuffer();
 
-    const palette = await Vibrant.from(buffer).getPalette();
+    const palette = await Vibrant.from(Buffer.from(buffer)).getPalette();
     const colors = Object.values(palette)
       .map(swatch => (swatch ? swatch.getHex() : null))
       .filter(Boolean);
