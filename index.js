@@ -1,6 +1,6 @@
 const express = require('express');
 const fetch = require('node-fetch');
-const Vibrant = require('node-vibrant/node'); // ključna izmena
+const Vibrant = require('node-vibrant').default; // OVO je KLJUČNO!
 
 const app = express();
 app.use(express.json());
