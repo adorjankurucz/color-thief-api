@@ -8,16 +8,12 @@ app.use(express.json());
 app.post('/palette', async (req, res) => {
   try {
     const { imageUrl } = req.body;
-    if (!imageUrl) {
-      return res.status(400).json({ error: "imageUrl is required!" });
-    }
-
     const response = await fetch(imageUrl);
     const buffer = await response.buffer();
 
     const palette = await Vibrant.from(buffer).getPalette();
     const colors = Object.values(palette)
-      .map(swatch => swatch ? swatch.getHex() : null)
+      .map(swatch => (swatch ? swatch.getHex() : null))
       .filter(Boolean);
 
     res.json({ colors });
@@ -27,4 +23,4 @@ app.post('/palette', async (req, res) => {
 });
 
 const port = process.env.PORT || 8080;
-app.listen(port, () => console.log(`Palette API running on port ${port}`));
+app.listen(port, () => console.log('Palette API running on port', port));
